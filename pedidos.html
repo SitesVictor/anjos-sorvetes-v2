@@ -22,16 +22,40 @@
 <link rel="icon" href="img/icone.png">
 <link rel="stylesheet" href="estilo.css">
 <style>
-  .barra-cat{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:-2.2rem 0 1.2rem;position:relative;z-index:2}
-  .busca{flex:1 1 260px;display:flex;align-items:center;gap:.5rem;background:#fff;border:2px solid #dbeef3;border-radius:16px;padding:.2rem 1rem;box-shadow:var(--sombra)}
-  .busca input{border:0;outline:0;font:inherit;font-weight:700;padding:.75rem 0;width:100%;background:transparent}
-  .abas{display:flex;gap:.45rem;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:thin;margin-bottom:1.2rem}
-  .aba{flex:none;display:flex;align-items:center;gap:.4rem;font-weight:800;padding:.55rem 1rem;border-radius:999px;background:#fff;border:2px solid #dbeef3;color:var(--azulEsc);font-size:.95rem}
-  .aba b{font-size:.75rem;background:var(--ceu);border-radius:999px;padding:.05rem .45rem;color:var(--azul2)}
-  .aba.on{background:var(--azul2);border-color:var(--azul2);color:#fff}
-  .aba.on b{background:rgba(255,255,255,.25);color:#fff}
+  :root{--topo:66px;--fixo:0px}
+  /* topo enxuto */
+  .hero.compacto .wrap{grid-template-columns:minmax(0,1fr);padding-top:1.1rem;padding-bottom:2.6rem;gap:.5rem}
+  .toast{top:auto;bottom:100px;transform:translate(-50%,20px)}
+  .toast.on{transform:translate(-50%,0)}
+  .hero.compacto .linha{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem 1rem}
+  .hero.compacto h1{font-size:clamp(1.7rem,4.2vw,2.3rem);margin:.45rem 0 0;text-shadow:0 3px 0 rgba(31,95,114,.3)}
+  .hero.compacto .status{margin-top:0;font-size:.85rem;padding:.35rem .8rem}
+  .hero.compacto p.lead{font-size:.98rem;max-width:40rem}
+  .hero.compacto .onda{height:26px}
+  .novs{display:flex;align-items:center;gap:.7rem;margin-top:.2rem}
+  .novs>b{flex:none;font-family:"Baloo 2";font-size:1.05rem;color:var(--amarelo)}
+  .novs-l{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;padding:2px}
+  .novs-l::-webkit-scrollbar{display:none}
+  .nov{flex:none;display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.95);color:var(--azulEsc);border-radius:999px;padding:.25rem .85rem .25rem .25rem;font-weight:800;font-size:.88rem;text-align:left;line-height:1.15}
+  .nov .fi{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none}
+  .nov small{display:block;font-weight:700;color:var(--suave);font-size:.7rem}
+  /* busca + abas fixas */
+  .fixo{position:sticky;top:var(--topo);z-index:25;background:var(--creme);margin:0 -1.25rem 1rem;padding:.6rem 1.25rem .15rem;border-bottom:1px solid transparent;transition:box-shadow .2s,border-color .2s}
+  .fixo.preso{box-shadow:0 8px 16px -10px rgba(14,46,56,.35);border-bottom-color:#e3eef2}
+  .busca{display:flex;align-items:center;gap:.5rem;background:#fff;border:2px solid #dbeef3;border-radius:16px;padding:.05rem 1rem}
+  .busca input{border:0;outline:0;font:inherit;font-weight:700;padding:.6rem 0;width:100%;background:transparent}
+  .abas{display:flex;gap:.3rem;overflow-x:auto;padding:.6rem 0 .4rem;scrollbar-width:none}
+  .abas::-webkit-scrollbar{display:none}
+  .aba{flex:none;width:78px;display:flex;flex-direction:column;align-items:center;gap:.3rem;font-weight:800;font-size:.74rem;line-height:1.1;color:var(--azulEsc);text-align:center}
+  .aba .cir{width:60px;height:60px;border-radius:50%;overflow:hidden;border:3px solid #dbeef3;background:#fff;display:grid;place-items:center;font-size:1.7rem;transition:border-color .15s,transform .15s}
+  .aba .cir .fi{width:100%;height:100%;object-fit:cover;display:block}
+  .aba .cir .sem-foto{width:100%;height:100%}
+  .aba .cir .sem-foto.zero b{font-size:1.15rem}
+  .aba .cir .sem-foto.zero span{font-size:.48rem;letter-spacing:.04em}
+  .aba.on .cir{border-color:var(--azul2);box-shadow:0 0 0 2px var(--azul2);transform:scale(1.04)}
+  .aba.on .nome{color:var(--azul2)}
   .cat-desc{display:flex;align-items:center;gap:1.2rem;background:#fff;border-radius:var(--raio);padding:.8rem;box-shadow:var(--sombra);margin-bottom:1.2rem}
-  .cat-desc .cf{width:150px;height:110px;flex:none;border-radius:16px;object-fit:cover;display:grid}
+  .cat-desc .cf{width:120px;height:88px;flex:none;border-radius:16px;object-fit:cover;display:grid}
   .cat-desc .cf.sem-foto{font-size:1rem}
   .cat-desc .cf.mosaicinho{display:grid;grid-template-columns:1fr 1fr;gap:3px;overflow:hidden}
   .cat-desc .cf.mosaicinho img{width:100%;height:100%;object-fit:cover}
@@ -47,6 +71,9 @@
   .itens-l li{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1.2rem;border-bottom:1px solid #eef5f7;min-height:58px}
   .itens-l li:nth-child(odd){border-right:1px solid #eef5f7}
   .itens-l li.sel{background:#fffbea}
+  .itens-l li{scroll-margin-top:calc(var(--topo) + var(--fixo) + 12px)}
+  .itens-l li.flash{animation:flash 1.6s}
+  @keyframes flash{0%,60%{background:#ffe9a8}100%{background:transparent}}
   .itens-l .nm{font-weight:800;font-size:1rem}
   .itens-l .novo{display:inline-block;margin-left:.4rem;background:var(--amarelo);color:var(--marrom2);font-weight:900;font-size:.66rem;padding:.1rem .45rem;border-radius:999px;vertical-align:middle}
   .qtd{display:flex;align-items:center;gap:.45rem;flex:none}
@@ -56,6 +83,12 @@
   .qtd span{min-width:1.2rem;text-align:center;font-weight:900}
   .add{flex:none;padding:.4rem .9rem;border-radius:999px;background:var(--ceu);color:var(--azul2);font-weight:900;font-size:.9rem}
   .add:hover{background:var(--azul2);color:#fff}
+  .itens-l li.pote{flex-direction:column;align-items:stretch;gap:.5rem}
+  .tams{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+  .tam{display:flex;flex-direction:column;align-items:center;gap:.35rem;border:2px solid #dbeef3;border-radius:14px;padding:.45rem .3rem;background:#fff}
+  .tam.sel{border-color:var(--amarelo);background:#fff}
+  .tam>b{font-size:.82rem;color:var(--azulEsc)}
+  .tam .add{width:100%;padding:.35rem .4rem;font-size:.85rem}
   @media (max-width:700px){.itens-l{grid-template-columns:1fr}.itens-l li:nth-child(odd){border-right:0}}
   .vazio{grid-column:1/-1;text-align:center;padding:2rem;color:var(--suave);font-weight:800}
   .aviso-precos{margin-top:1.6rem;display:flex;gap:.8rem;align-items:center;background:#fff7d9;border:2px dashed #ecc54d;border-radius:16px;padding:.9rem 1.1rem;font-weight:800;color:#7a5b00}
@@ -80,28 +113,44 @@
   .modo input{display:none}
   .modo label:has(input:checked){border-color:var(--azul2);background:var(--ceu);color:var(--azul2)}
   .dlg .btn{width:100%;margin-top:.4rem}
+  .itens li .qtd button{color:inherit}
+  .itens li .qtd .m{background:#fff;color:var(--azul2)}
+  .itens li .qtd .p{color:#fff}
+  .itens .nmi{min-width:0}
+  .lh{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:.8rem}
+  .lh h4{font-family:"Baloo 2";font-size:1.15rem;color:var(--azulEsc)}
+  .limpar{font-weight:900;font-size:.85rem;color:#c0392b;padding:.3rem .6rem;border-radius:10px}
+  .limpar:hover{background:#fdecea}
+  .ret{background:var(--ceu);border-radius:14px;padding:.8rem;margin:1rem 0 .8rem}
+  .ret h4{font-family:"Baloo 2";font-size:1.1rem;color:var(--azulEsc)}
+  .ret p{font-size:.82rem;font-weight:700;color:var(--suave);margin-bottom:.6rem}
+  .ret .dois{display:grid;grid-template-columns:1.7fr 1fr;gap:.5rem}
+  .ret .campo{margin-bottom:0}
+  .prev{margin:.4rem 0 .6rem}
+  .prev h4{font-family:"Baloo 2";font-size:1.1rem;color:var(--azulEsc)}
+  .prev pre{white-space:pre-wrap;word-break:break-word;font:inherit;font-size:.88rem;font-weight:700;background:#e7fbe9;border:1px solid #bfe8c4;border-radius:14px 14px 14px 4px;padding:.8rem .9rem;margin-top:.3rem;max-height:220px;overflow:auto}
 </style>
 </head>
 <body>
 
-<section class="hero curto">
+<section class="hero curto compacto">
   <div class="wrap">
-    <div>
-      <span class="selo">🛒 Pedidos</span>
-      <h1>Monte seu pedido</h1>
-      <p class="lead">Escolha os sabores, envie a lista pelo WhatsApp e retire no Empório. Respondemos com valores e disponibilidade.</p>
+    <div class="linha">
+      <div><span class="selo">🛒 Pedidos</span><h1>Monte seu pedido</h1></div>
       <div class="status" id="status"><i></i><span>…</span></div>
     </div>
+    <p class="lead">Escolha os sabores, envie a lista pelo WhatsApp e retire no Empório.</p>
+    <div class="novs" id="novsBox" hidden><b>✨ Novidades</b><div class="novs-l" id="novs"></div></div>
   </div>
   <svg class="onda" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 30c120 20 240 30 360 22S600 10 720 12s240 30 360 34 240-10 360-24v38H0z"/></svg>
 </section>
 
 <section style="padding-bottom:3rem">
   <div class="wrap">
-    <div class="barra-cat">
+    <div class="fixo" id="fixo">
       <label class="busca"><span>🔎</span><input id="busca" type="search" placeholder="Buscar sabor (ex.: morango, ninho…)"></label>
+      <div class="abas" id="abas"></div>
     </div>
-    <div class="abas" id="abas"></div>
     <div class="cat-desc" id="catDesc"></div>
     <div class="grade" id="grade"></div>
     <div class="aviso-precos"><span style="font-size:1.4rem">💬</span><div>Os valores variam por tamanho e quantidade. Monte sua lista e a gente responde rapidinho pelo WhatsApp. É comércio? <a href="revenda.html">Veja a área de revenda</a>.</div></div>
@@ -116,6 +165,7 @@
 <dialog id="dlg">
   <div class="dlg">
     <h3>Sua lista <button id="fechar" aria-label="Fechar">✕</button></h3>
+    <div class="lh"><h4 id="lhQtd"></h4><button class="limpar" id="limpar">🗑 Limpar lista</button></div>
     <ul class="itens" id="itens"></ul>
     <div class="modo">
       <label><input type="radio" name="modo" value="consumo" checked>🍦 Para mim</label>
@@ -123,9 +173,18 @@
     </div>
     <label class="campo"><span>Seu nome</span><input id="nome" autocomplete="name"></label>
     <label class="campo" id="campoLoja" hidden><span>Nome do comércio e cidade</span><input id="loja"></label>
-    <label class="campo"><span>Observações (opcional)</span><textarea id="obs" rows="2" placeholder="Ex.: retiro no empório amanhã à tarde"></textarea></label>
-    <button class="btn zap" id="enviar">Consultar valores no WhatsApp</button>
-    <p class="obs">A mensagem abre pronta no WhatsApp da Anjos.</p>
+    <div class="ret">
+      <h4>🏬 Retirada no Empório</h4>
+      <p>Por enquanto, só retirada no Empório. Escolha quando pretende vir (opcional).</p>
+      <div class="dois">
+        <label class="campo"><span>Dia</span><select id="dia"></select></label>
+        <label class="campo"><span>Horário</span><select id="hora" disabled></select></label>
+      </div>
+    </div>
+    <label class="campo"><span>Observações (opcional)</span><textarea id="obs" rows="2" placeholder="Ex.: pode confirmar mais tarde"></textarea></label>
+    <div class="prev"><h4>Prévia da mensagem</h4><pre id="previa"></pre></div>
+    <button class="btn zap" id="enviar">Abrir no WhatsApp</button>
+    <p class="obs">Confira a prévia acima. A mensagem abre pronta no WhatsApp da Anjos.</p>
   </div>
 </dialog>
 
@@ -134,18 +193,48 @@
   montarLayout("pedidos");
   desenharStatus("#status"); setInterval(() => desenharStatus("#status"), 60000);
 
-  const qtd = (() => { try { return JSON.parse(sessionStorage.getItem("anjos_lista") || "{}"); } catch(e) { return {}; } })();
-  const salvar = () => { try { sessionStorage.setItem("anjos_lista", JSON.stringify(qtd)); } catch(e) {} };
+  // Tamanhos disponíveis por linha (hoje só os potes). Cada tamanho vira um item separado.
+  const TAMANHOS = { potes: [{ k:"05", nome:"1/2 L" }, { k:"1", nome:"1 L" }] };
+  const CHAVE = "anjos_lista";
+  const porId = {}; ITENS.forEach(i => porId[i.id] = i);
+  // "potes|Morango@1" -> { item, tam }
+  const decod = k => { const [id, t] = k.split("@"); const item = porId[id]; if (!item) return null;
+    const tams = TAMANHOS[item.cat.id]; const tam = tams ? tams.find(x => x.k === t) : null;
+    if (tams ? !tam : t) return null; return { item, tam }; };
+
+  const qtd = (() => { try { const o = JSON.parse(localStorage.getItem(CHAVE) || "{}"), r = {};
+    Object.entries(o).forEach(([k,n]) => { if (decod(k) && n > 0) r[k] = n; }); return r; } catch(e) { return {}; } })();
+  const salvar = () => { try { localStorage.setItem(CHAVE, JSON.stringify(qtd)); } catch(e) {} };
   const param = new URLSearchParams(location.search).get("cat");
   let catAtual = CATS.some(c => c.id === param) ? param : "todos";
 
+  // alturas do cabeçalho e da barra fixa (para o sticky e a rolagem)
+  function medir() { const r = document.documentElement.style;
+    r.setProperty("--topo", ($(".topo").offsetHeight || 66) + "px"); r.setProperty("--fixo", $("#fixo").offsetHeight + "px"); }
+  addEventListener("resize", medir);
+  function marcarPreso() { const f = $("#fixo"); f.classList.toggle("preso", f.getBoundingClientRect().top <= ($(".topo").offsetHeight || 66) + 1); }
+  addEventListener("scroll", marcarPreso, { passive:true });
+
+  // faixa Novidades
+  const novos = ITENS.filter(i => i.novo);
+  if (novos.length) { $("#novsBox").hidden = false;
+    $("#novs").innerHTML = novos.map(i => `<button class="nov" data-nov="${i.id}">${fotoCat(i.cat,"fi")}<span>${i.sabor}<small>${i.cat.nome}</small></span></button>`).join(""); }
+  $("#novs").addEventListener("click", e => { const b = e.target.closest("[data-nov]"); if (!b) return;
+    const i = porId[b.dataset.nov]; $("#busca").value = ""; catAtual = i.cat.id; desenharAbas(); desenharGrade();
+    const li = document.querySelector(`li[data-item="${CSS.escape(i.id)}"]`); if (li) { li.scrollIntoView({ block:"start", behavior:"smooth" }); li.classList.add("flash"); setTimeout(() => li.classList.remove("flash"), 1700); } });
+
   function desenharAbas() {
-    const abas = [{ id:"todos", nome:"Todos", n: ITENS.length }, ...CATS.map(c => ({ id:c.id, nome:c.nome, n:c.s.length }))];
-    $("#abas").innerHTML = abas.map(a => `<button class="aba ${a.id===catAtual?"on":""}" data-c="${a.id}">${a.nome}<b>${a.n}</b></button>`).join("");
-    const on = $("#abas .on"); if (on) on.scrollIntoView({ block:"nearest", inline:"center" });
+    const abas = [{ id:"todos", nome:"Todos" }, ...CATS];
+    $("#abas").innerHTML = abas.map(a => `<button class="aba ${a.id===catAtual?"on":""}" data-c="${a.id}" aria-pressed="${a.id===catAtual}"><span class="cir">${a.id==="todos" ? "🍦" : fotoCat(a,"fi")}</span><span class="nome">${a.nome}</span></button>`).join("");
+    const on = $("#abas .on"), box = $("#abas");
+    if (on) box.scrollLeft = on.offsetLeft - (box.clientWidth - on.offsetWidth) / 2;
+    medir();
   }
+  function irParaGrade() { const y = $("#catDesc").getBoundingClientRect().top + scrollY - ($(".topo").offsetHeight || 66) - $("#fixo").offsetHeight - 8; if (scrollY > y) scrollTo({ top:Math.max(0,y) }); }
   $("#abas").addEventListener("click", e => { const b = e.target.closest(".aba"); if (!b) return; catAtual = b.dataset.c;
-    history.replaceState(null, "", catAtual === "todos" ? "pedidos.html" : "pedidos.html?cat=" + catAtual); desenharAbas(); desenharGrade(); });
+    history.replaceState(null, "", catAtual === "todos" ? "pedidos.html" : "pedidos.html?cat=" + catAtual); desenharAbas(); desenharGrade(); irParaGrade(); });
+
+  const stepper = (k, n) => `<span class="qtd"><button class="m" data-k="${k}" data-d="-1" aria-label="Diminuir">−</button><span>${n}</span><button class="p" data-k="${k}" data-d="1" aria-label="Aumentar">+</button></span>`;
 
   function desenharGrade() {
     const q = norm($("#busca").value.trim());
@@ -156,51 +245,93 @@
     if (!l.length) { $("#grade").innerHTML = `<div class="vazio">Nenhum sabor encontrado 🍦</div>`; return; }
     const grupos = CATS.map(c => ({ c, it: l.filter(i => i.cat.id === c.id) })).filter(g => g.it.length);
     const NOTA = { copinho: "Os sabores do copinho variam. Adicione e combinamos pelo WhatsApp." };
+    const nome = i => `<span class="nm">${i.sabor}${i.novo?'<span class="novo">Novo</span>':""}</span>`;
     $("#grade").innerHTML = grupos.map(g => `<div class="grupo"><h3>${g.c.nome}${g.c.tam ? `<small>${g.c.tam}</small>` : ""}</h3>${NOTA[g.c.id] ? `<p class="nota">${NOTA[g.c.id]}</p>` : ""}<ul class="itens-l">${
-      g.it.map(i => { const n = qtd[i.id] || 0;
-        return `<li class="${n?"sel":""}"><span class="nm">${i.sabor}${i.novo?'<span class="novo">Novo</span>':""}</span>${
-          n ? `<span class="qtd"><button class="m" data-id="${i.id}" data-d="-1" aria-label="Remover">−</button><span>${n}</span><button class="p" data-id="${i.id}" data-d="1" aria-label="Adicionar">+</button></span>`
-            : `<button class="add" data-id="${i.id}" data-d="1">+ Adicionar</button>`}</li>`; }).join("")}</ul></div>`).join("");
+      g.it.map(i => { const tams = TAMANHOS[i.cat.id];
+        if (tams) { const sel = tams.some(t => qtd[i.id+"@"+t.k]);
+          return `<li class="pote ${sel?"sel":""}" data-item="${i.id}">${nome(i)}<div class="tams">${tams.map(t => { const k = i.id+"@"+t.k, n = qtd[k] || 0;
+            return `<div class="tam ${n?"sel":""}"><b>${t.nome}</b>${n ? stepper(k,n) : `<button class="add" data-k="${k}" data-d="1" aria-label="Adicionar ${i.sabor} ${t.nome}">+ Adicionar</button>`}</div>`; }).join("")}</div></li>`; }
+        const n = qtd[i.id] || 0;
+        return `<li class="${n?"sel":""}" data-item="${i.id}">${nome(i)}${n ? stepper(i.id,n) : `<button class="add" data-k="${i.id}" data-d="1">+ Adicionar</button>`}</li>`; }).join("")}</ul></div>`).join("");
   }
   $("#busca").addEventListener("input", () => { if ($("#busca").value && catAtual !== "todos") { catAtual = "todos"; desenharAbas(); } desenharGrade(); });
-  $("#grade").addEventListener("click", e => { const b = e.target.closest("[data-id]"); if (!b) return; mudar(b.dataset.id, +b.dataset.d); });
+  $("#grade").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b) mudar(b.dataset.k, +b.dataset.d); });
 
-  function mudar(id, d) {
-    qtd[id] = Math.max(0, (qtd[id] || 0) + d); if (!qtd[id]) delete qtd[id];
+  function mudar(k, d) {
+    qtd[k] = Math.max(0, (qtd[k] || 0) + d); if (!qtd[k]) delete qtd[k];
     if (d > 0) toast("Adicionado à lista ✓");
     salvar(); desenharGrade(); atualizarLista();
   }
+  const rotulo = k => { const x = decod(k); return x.item.sabor + (x.tam ? ` (${x.tam.nome})` : ""); };
+  const chavesOrdenadas = () => Object.keys(qtd).filter(decod).sort((a,b) => ITENS.indexOf(decod(a).item) - ITENS.indexOf(decod(b).item) || a.localeCompare(b));
+
   function atualizarLista() {
-    const tot = Object.values(qtd).reduce((a,b) => a + b, 0);
+    const ks = chavesOrdenadas(), tot = ks.reduce((a,k) => a + qtd[k], 0);
     $("#lQtd").textContent = tot + (tot === 1 ? " item" : " itens");
+    $("#lhQtd").textContent = tot + (tot === 1 ? " item" : " itens");
     $("#lista").classList.toggle("on", tot > 0); document.body.classList.toggle("com-lista", tot > 0);
-    $("#itens").innerHTML = Object.entries(qtd).map(([id,n]) => { const i = ITENS.find(x => x.id === id); if (!i) return "";
-      return `<li><div>${n}x ${i.sabor}<small>${i.cat.nome}</small></div><button data-rm="${id}">Remover</button></li>`; }).join("");
+    $("#itens").innerHTML = ks.map(k => `<li><div class="nmi">${rotulo(k)}<small>${decod(k).item.cat.nome}</small></div>${stepper(k, qtd[k])}</li>`).join("");
     if (!tot && $("#dlg").open) $("#dlg").close();
+    previa();
   }
-  $("#itens").addEventListener("click", e => { const b = e.target.closest("[data-rm]"); if (b) { delete qtd[b.dataset.rm]; salvar(); desenharGrade(); atualizarLista(); } });
-  $("#abrirLista").onclick = () => $("#dlg").showModal();
+  $("#itens").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b) mudar(b.dataset.k, +b.dataset.d); });
+  $("#limpar").onclick = () => { if (!confirm("Limpar toda a lista?")) return; Object.keys(qtd).forEach(k => delete qtd[k]); salvar(); desenharGrade(); atualizarLista(); toast("Lista limpa"); };
+
+  // ---- retirada (dia e horário) ----
+  const ddmm = d => String(d.getDate()).padStart(2,"0") + "/" + String(d.getMonth()+1).padStart(2,"0");
+  const minToH = m => String(Math.floor(m/60)).padStart(2,"0") + ":" + String(m%60).padStart(2,"0");
+  const hm = s => { const [a,b] = s.split(":").map(Number); return a*60+b; };
+  function slots(d) { const h = horarioDo(d); let ini = hm(h[0]); const fim = hm(h[1]) - 30, hoje = new Date(); 
+    if (ymdLocal(d) === ymdLocal(hoje)) ini = Math.max(ini, Math.ceil((hoje.getHours()*60 + hoje.getMinutes() + 30) / 30) * 30);
+    const r = []; for (let m = ini; m <= fim; m += 30) r.push(minToH(m)); return r; }
+  const diaTxt = (d, k) => (k === 0 ? "Hoje" : k === 1 ? "Amanhã" : DIAS[d.getDay()]) + " · " + ddmm(d);
+  const diasLista = [];
+  function montarDias() {
+    const hoje = new Date(); diasLista.length = 0; const ant = $("#dia").value;
+    for (let k = 0; k < 8; k++) { const d = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + k); if (slots(d).length) diasLista.push({ k, d, v: ymdLocal(d) }); }
+    $("#dia").innerHTML = `<option value="">A combinar</option>` + diasLista.map(x => `<option value="${x.v}">${diaTxt(x.d, x.k)}</option>`).join("");
+    if (diasLista.some(x => x.v === ant)) $("#dia").value = ant; montarHoras();
+  }
+  function montarHoras() {
+    const x = diasLista.find(y => y.v === $("#dia").value), ant = $("#hora").value;
+    $("#hora").disabled = !x;
+    $("#hora").innerHTML = x ? `<option value="">Qualquer horário</option>` + slots(x.d).map(h => `<option value="${h}">${fmtH(h)}</option>`).join("") : `<option value="">—</option>`;
+    if (x && [...$("#hora").options].some(o => o.value === ant)) $("#hora").value = ant;
+  }
+  $("#dia").addEventListener("change", () => { montarHoras(); previa(); });
+  $("#hora").addEventListener("change", previa);
+
+  // ---- mensagem e prévia ----
+  const modoRevenda = () => document.querySelector('input[name=modo]:checked').value === "revenda";
+  function mensagem(nome) {
+    const revenda = modoRevenda(), grupos = {};
+    chavesOrdenadas().forEach(k => { const x = decod(k); (grupos[x.item.cat.nome] ||= []).push(`${qtd[k]}x ${rotulo(k)}`); });
+    let t = `Olá, Anjos! 🍦 ${revenda ? "Tenho interesse em *revender* e gostaria" : "Gostaria"} de consultar valores destes itens:\n`;
+    for (const g in grupos) t += `\n*${g}*\n` + grupos[g].map(x => "• " + x).join("\n") + "\n";
+    t += `\n*Nome:* ${nome}`;
+    if (revenda && $("#loja").value.trim()) t += `\n*Comércio:* ${$("#loja").value.trim()}`;
+    const x = diasLista.find(y => y.v === $("#dia").value);
+    t += x ? `\n*Retirada no Empório:* ${diaTxt(x.d, x.k).replace(" · ", " ")}${$("#hora").value ? " às " + fmtH($("#hora").value) : " (horário a combinar)"}` : `\n*Retirada:* no Empório (dia a combinar)`;
+    if ($("#obs").value.trim()) t += `\n*Obs.:* ${$("#obs").value.trim()}`;
+    return t;
+  }
+  function previa() { $("#previa").textContent = chavesOrdenadas().length ? mensagem($("#nome").value.trim() || "(digite seu nome)") : ""; }
+  ["#nome","#loja","#obs"].forEach(s => $(s).addEventListener("input", previa));
+  document.querySelectorAll('input[name=modo]').forEach(r => r.addEventListener("change", () => { $("#campoLoja").hidden = !modoRevenda(); previa(); }));
+
+  $("#abrirLista").onclick = () => { montarDias(); previa(); $("#dlg").showModal(); };
   $("#fechar").onclick = () => $("#dlg").close();
-  document.querySelectorAll('input[name=modo]').forEach(r => r.addEventListener("change", () => {
-    $("#campoLoja").hidden = document.querySelector('input[name=modo]:checked').value !== "revenda"; }));
   try { $("#nome").value = localStorage.getItem("anjos_nome") || ""; } catch(e) {}
 
   $("#enviar").onclick = () => {
     const nome = $("#nome").value.trim();
     if (!nome) { $("#nome").focus(); toast("Digite seu nome"); return; }
     try { localStorage.setItem("anjos_nome", nome); } catch(e) {}
-    const revenda = document.querySelector('input[name=modo]:checked').value === "revenda";
-    const grupos = {};
-    Object.entries(qtd).forEach(([id,n]) => { const i = ITENS.find(x => x.id === id); if (i) (grupos[i.cat.nome] ||= []).push(`${n}x ${i.sabor}`); });
-    let t = `Olá, Anjos! 🍦 ${revenda ? "Tenho interesse em *revender* e gostaria" : "Gostaria"} de consultar valores destes itens:\n`;
-    for (const g in grupos) t += `\n*${g}*\n` + grupos[g].map(x => "• " + x).join("\n") + "\n";
-    t += `\n*Nome:* ${nome}`;
-    if (revenda && $("#loja").value.trim()) t += `\n*Comércio:* ${$("#loja").value.trim()}`;
-    if ($("#obs").value.trim()) t += `\n*Obs.:* ${$("#obs").value.trim()}`;
-    window.open(zap(t), "_blank");
+    window.open(zap(mensagem(nome)), "_blank");
   };
 
-  desenharAbas(); desenharGrade(); atualizarLista();
+  desenharAbas(); desenharGrade(); atualizarLista(); medir(); marcarPreso();
+  addEventListener("load", medir);
 </script>
 </body>
 </html>
