@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Pedidos — Anjos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="description" content="Escolha seus sabores Anjos e envie a lista pelo WhatsApp. Picolés, paletas, potes, cones e sundaes.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Anjos">
+<meta property="og:title" content="Pedidos — Anjos">
+<meta property="og:description" content="Escolha seus sabores Anjos e envie a lista pelo WhatsApp. Picolés, paletas, potes, cones e sundaes.">
+<meta property="og:url" content="https://sitesvictor.github.io/anjos-sorvetes-v2/pedidos.html">
+<meta property="og:image" content="https://sitesvictor.github.io/anjos-sorvetes-v2/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#3b98b0">
+<link rel="icon" href="img/icone.png">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .barra-cat{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:-2.2rem 0 1.2rem;position:relative;z-index:2}
+  .busca{flex:1 1 260px;display:flex;align-items:center;gap:.5rem;background:#fff;border:2px solid #dbeef3;border-radius:16px;padding:.2rem 1rem;box-shadow:var(--sombra)}
+  .busca input{border:0;outline:0;font:inherit;font-weight:700;padding:.75rem 0;width:100%;background:transparent}
+  .abas{display:flex;gap:.45rem;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:thin;margin-bottom:1.2rem}
+  .aba{flex:none;display:flex;align-items:center;gap:.4rem;font-weight:800;padding:.55rem 1rem;border-radius:999px;background:#fff;border:2px solid #dbeef3;color:var(--azulEsc);font-size:.95rem}
+  .aba b{font-size:.75rem;background:var(--ceu);border-radius:999px;padding:.05rem .45rem;color:var(--azul2)}
+  .aba.on{background:var(--azul2);border-color:var(--azul2);color:#fff}
+  .aba.on b{background:rgba(255,255,255,.25);color:#fff}
+  .cat-desc{display:flex;align-items:center;gap:1.2rem;background:#fff;border-radius:var(--raio);padding:.8rem;box-shadow:var(--sombra);margin-bottom:1.2rem}
+  .cat-desc .cf{width:150px;height:110px;flex:none;border-radius:16px;object-fit:cover;display:grid}
+  .cat-desc .cf.sem-foto{font-size:1rem}
+  .cat-desc .cf.mosaicinho{display:grid;grid-template-columns:1fr 1fr;gap:3px;overflow:hidden}
+  .cat-desc .cf.mosaicinho img{width:100%;height:100%;object-fit:cover}
+  @media (max-width:520px){.cat-desc .cf{width:96px;height:96px}}
+  .cat-desc h3{font-size:1.6rem;color:var(--azulEsc)}
+  .cat-desc p{color:var(--suave);font-weight:700;font-size:.95rem}
+  .grade{display:grid;gap:1.4rem}
+  .grupo{background:#fff;border-radius:var(--raio);box-shadow:var(--sombra);overflow:hidden}
+  .grupo h3{font-size:1.35rem;color:var(--azulEsc);padding:.9rem 1.2rem;background:var(--ceu);display:flex;justify-content:space-between;align-items:center}
+  .grupo h3 small{font-family:Nunito;font-size:.8rem;font-weight:800;color:var(--suave)}
+  .grupo .nota{padding:.7rem 1.2rem 0;font-weight:700;color:var(--suave);font-size:.92rem}
+  .itens-l{list-style:none;display:grid;grid-template-columns:1fr 1fr}
+  .itens-l li{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1.2rem;border-bottom:1px solid #eef5f7;min-height:58px}
+  .itens-l li:nth-child(odd){border-right:1px solid #eef5f7}
+  .itens-l li.sel{background:#fffbea}
+  .itens-l .nm{font-weight:800;font-size:1rem}
+  .itens-l .novo{display:inline-block;margin-left:.4rem;background:var(--amarelo);color:var(--marrom2);font-weight:900;font-size:.66rem;padding:.1rem .45rem;border-radius:999px;vertical-align:middle}
+  .qtd{display:flex;align-items:center;gap:.45rem;flex:none}
+  .qtd button{width:32px;height:32px;border-radius:50%;font-weight:900;font-size:1.15rem;display:grid;place-items:center}
+  .qtd .m{background:var(--ceu);color:var(--azul2)}
+  .qtd .p{background:var(--azul2);color:#fff}
+  .qtd span{min-width:1.2rem;text-align:center;font-weight:900}
+  .add{flex:none;padding:.4rem .9rem;border-radius:999px;background:var(--ceu);color:var(--azul2);font-weight:900;font-size:.9rem}
+  .add:hover{background:var(--azul2);color:#fff}
+  @media (max-width:700px){.itens-l{grid-template-columns:1fr}.itens-l li:nth-child(odd){border-right:0}}
+  .vazio{grid-column:1/-1;text-align:center;padding:2rem;color:var(--suave);font-weight:800}
+  .aviso-precos{margin-top:1.6rem;display:flex;gap:.8rem;align-items:center;background:#fff7d9;border:2px dashed #ecc54d;border-radius:16px;padding:.9rem 1.1rem;font-weight:800;color:#7a5b00}
+
+  .lista{position:fixed;left:50%;bottom:16px;transform:translate(-50%,140%);z-index:40;width:min(680px,calc(100% - 24px));background:var(--azulEsc);color:#fff;border-radius:20px;box-shadow:0 18px 40px rgba(0,0,0,.3);display:flex;align-items:center;gap:1rem;padding:.8rem .8rem .8rem 1.2rem;transition:transform .3s}
+  .lista.on{transform:translate(-50%,0)}
+  .lista b{font-family:"Baloo 2";font-size:1.3rem}
+  .lista small{display:block;opacity:.8;font-weight:700}
+  .lista .btn{margin-left:auto;padding:.7rem 1.1rem}
+
+  dialog{border:0;border-radius:24px;padding:0;width:min(560px,calc(100% - 20px));max-height:calc(100dvh - 30px);box-shadow:0 30px 70px rgba(0,0,0,.35);margin:auto}
+  dialog::backdrop{background:rgba(14,46,56,.6)}
+  .dlg{padding:1.5rem;overflow:auto;max-height:calc(100dvh - 30px)}
+  .dlg h3{font-size:1.9rem;color:var(--azulEsc);display:flex;justify-content:space-between;align-items:center}
+  .dlg h3 button{font-size:1.6rem;color:var(--suave)}
+  .itens{list-style:none;margin:1rem 0;display:grid;gap:.5rem}
+  .itens li{display:flex;justify-content:space-between;align-items:center;gap:.5rem;background:var(--ceu);border-radius:12px;padding:.6rem .8rem;font-weight:800}
+  .itens li small{display:block;color:var(--suave);font-weight:700;font-size:.78rem}
+  .itens li button{color:#c0392b;font-weight:900}
+  .modo{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:1rem 0}
+  .modo label{border:2px solid #dbeef3;border-radius:14px;padding:.7rem;text-align:center;font-weight:900;cursor:pointer;color:var(--azulEsc)}
+  .modo input{display:none}
+  .modo label:has(input:checked){border-color:var(--azul2);background:var(--ceu);color:var(--azul2)}
+  .dlg .btn{width:100%;margin-top:.4rem}
+</style>
+</head>
+<body>
+
+<section class="hero curto">
+  <div class="wrap">
+    <div>
+      <span class="selo">🛒 Pedidos</span>
+      <h1>Monte seu pedido</h1>
+      <p class="lead">Escolha os sabores, envie a lista pelo WhatsApp e retire no Empório. Respondemos com valores e disponibilidade.</p>
+      <div class="status" id="status"><i></i><span>…</span></div>
+    </div>
+  </div>
+  <svg class="onda" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 30c120 20 240 30 360 22S600 10 720 12s240 30 360 34 240-10 360-24v38H0z"/></svg>
+</section>
+
+<section style="padding-bottom:3rem">
+  <div class="wrap">
+    <div class="barra-cat">
+      <label class="busca"><span>🔎</span><input id="busca" type="search" placeholder="Buscar sabor (ex.: morango, ninho…)"></label>
+    </div>
+    <div class="abas" id="abas"></div>
+    <div class="cat-desc" id="catDesc"></div>
+    <div class="grade" id="grade"></div>
+    <div class="aviso-precos"><span style="font-size:1.4rem">💬</span><div>Os valores variam por tamanho e quantidade. Monte sua lista e a gente responde rapidinho pelo WhatsApp. É comércio? <a href="revenda.html">Veja a área de revenda</a>.</div></div>
+  </div>
+</section>
+
+<div class="lista" id="lista">
+  <div><b id="lQtd">0 itens</b><small>na sua lista</small></div>
+  <button class="btn am" id="abrirLista">Ver lista e enviar</button>
+</div>
+
+<dialog id="dlg">
+  <div class="dlg">
+    <h3>Sua lista <button id="fechar" aria-label="Fechar">✕</button></h3>
+    <ul class="itens" id="itens"></ul>
+    <div class="modo">
+      <label><input type="radio" name="modo" value="consumo" checked>🍦 Para mim</label>
+      <label><input type="radio" name="modo" value="revenda">🏪 Para revender</label>
+    </div>
+    <label class="campo"><span>Seu nome</span><input id="nome" autocomplete="name"></label>
+    <label class="campo" id="campoLoja" hidden><span>Nome do comércio e cidade</span><input id="loja"></label>
+    <label class="campo"><span>Observações (opcional)</span><textarea id="obs" rows="2" placeholder="Ex.: retiro no empório amanhã à tarde"></textarea></label>
+    <button class="btn zap" id="enviar">Consultar valores no WhatsApp</button>
+    <p class="obs">A mensagem abre pronta no WhatsApp da Anjos.</p>
+  </div>
+</dialog>
+
+<script src="comum.js"></script>
+<script>
+  montarLayout("pedidos");
+  desenharStatus("#status"); setInterval(() => desenharStatus("#status"), 60000);
+
+  const qtd = (() => { try { return JSON.parse(sessionStorage.getItem("anjos_lista") || "{}"); } catch(e) { return {}; } })();
+  const salvar = () => { try { sessionStorage.setItem("anjos_lista", JSON.stringify(qtd)); } catch(e) {} };
+  const param = new URLSearchParams(location.search).get("cat");
+  let catAtual = CATS.some(c => c.id === param) ? param : "todos";
+
+  function desenharAbas() {
+    const abas = [{ id:"todos", nome:"Todos", n: ITENS.length }, ...CATS.map(c => ({ id:c.id, nome:c.nome, n:c.s.length }))];
+    $("#abas").innerHTML = abas.map(a => `<button class="aba ${a.id===catAtual?"on":""}" data-c="${a.id}">${a.nome}<b>${a.n}</b></button>`).join("");
+    const on = $("#abas .on"); if (on) on.scrollIntoView({ block:"nearest", inline:"center" });
+  }
+  $("#abas").addEventListener("click", e => { const b = e.target.closest(".aba"); if (!b) return; catAtual = b.dataset.c;
+    history.replaceState(null, "", catAtual === "todos" ? "pedidos.html" : "pedidos.html?cat=" + catAtual); desenharAbas(); desenharGrade(); });
+
+  function desenharGrade() {
+    const q = norm($("#busca").value.trim());
+    const c = CATS.find(x => x.id === catAtual);
+    $("#catDesc").innerHTML = c ? `${fotoCat(c, "cf")}<div><h3>${c.nome}</h3><p>${c.desc}${c.tam ? " Tamanhos: " + c.tam + "." : ""}</p></div>`
+      : `<div class="cf mosaicinho"><img src="img/sm/cobertura.webp" alt=""><img src="img/sm/frutados.webp" alt=""><img src="img/sm/potes.webp" alt=""><img src="img/sm/cones.webp" alt=""></div><div><h3>Todos os produtos</h3><p>Picolés, paletas, potes, cones, sundaes e copinhos. Itens com selo <b>Novo</b> são lançamentos.</p></div>`;
+    const l = ITENS.filter(i => (catAtual === "todos" || i.cat.id === catAtual) && (!q || norm(i.sabor + " " + i.cat.nome).includes(q)));
+    if (!l.length) { $("#grade").innerHTML = `<div class="vazio">Nenhum sabor encontrado 🍦</div>`; return; }
+    const grupos = CATS.map(c => ({ c, it: l.filter(i => i.cat.id === c.id) })).filter(g => g.it.length);
+    const NOTA = { copinho: "Os sabores do copinho variam. Adicione e combinamos pelo WhatsApp." };
+    $("#grade").innerHTML = grupos.map(g => `<div class="grupo"><h3>${g.c.nome}${g.c.tam ? `<small>${g.c.tam}</small>` : ""}</h3>${NOTA[g.c.id] ? `<p class="nota">${NOTA[g.c.id]}</p>` : ""}<ul class="itens-l">${
+      g.it.map(i => { const n = qtd[i.id] || 0;
+        return `<li class="${n?"sel":""}"><span class="nm">${i.sabor}${i.novo?'<span class="novo">Novo</span>':""}</span>${
+          n ? `<span class="qtd"><button class="m" data-id="${i.id}" data-d="-1" aria-label="Remover">−</button><span>${n}</span><button class="p" data-id="${i.id}" data-d="1" aria-label="Adicionar">+</button></span>`
+            : `<button class="add" data-id="${i.id}" data-d="1">+ Adicionar</button>`}</li>`; }).join("")}</ul></div>`).join("");
+  }
+  $("#busca").addEventListener("input", () => { if ($("#busca").value && catAtual !== "todos") { catAtual = "todos"; desenharAbas(); } desenharGrade(); });
+  $("#grade").addEventListener("click", e => { const b = e.target.closest("[data-id]"); if (!b) return; mudar(b.dataset.id, +b.dataset.d); });
+
+  function mudar(id, d) {
+    qtd[id] = Math.max(0, (qtd[id] || 0) + d); if (!qtd[id]) delete qtd[id];
+    if (d > 0) toast("Adicionado à lista ✓");
+    salvar(); desenharGrade(); atualizarLista();
+  }
+  function atualizarLista() {
+    const tot = Object.values(qtd).reduce((a,b) => a + b, 0);
+    $("#lQtd").textContent = tot + (tot === 1 ? " item" : " itens");
+    $("#lista").classList.toggle("on", tot > 0); document.body.classList.toggle("com-lista", tot > 0);
+    $("#itens").innerHTML = Object.entries(qtd).map(([id,n]) => { const i = ITENS.find(x => x.id === id); if (!i) return "";
+      return `<li><div>${n}x ${i.sabor}<small>${i.cat.nome}</small></div><button data-rm="${id}">Remover</button></li>`; }).join("");
+    if (!tot && $("#dlg").open) $("#dlg").close();
+  }
+  $("#itens").addEventListener("click", e => { const b = e.target.closest("[data-rm]"); if (b) { delete qtd[b.dataset.rm]; salvar(); desenharGrade(); atualizarLista(); } });
+  $("#abrirLista").onclick = () => $("#dlg").showModal();
+  $("#fechar").onclick = () => $("#dlg").close();
+  document.querySelectorAll('input[name=modo]').forEach(r => r.addEventListener("change", () => {
+    $("#campoLoja").hidden = document.querySelector('input[name=modo]:checked').value !== "revenda"; }));
+  try { $("#nome").value = localStorage.getItem("anjos_nome") || ""; } catch(e) {}
+
+  $("#enviar").onclick = () => {
+    const nome = $("#nome").value.trim();
+    if (!nome) { $("#nome").focus(); toast("Digite seu nome"); return; }
+    try { localStorage.setItem("anjos_nome", nome); } catch(e) {}
+    const revenda = document.querySelector('input[name=modo]:checked').value === "revenda";
+    const grupos = {};
+    Object.entries(qtd).forEach(([id,n]) => { const i = ITENS.find(x => x.id === id); if (i) (grupos[i.cat.nome] ||= []).push(`${n}x ${i.sabor}`); });
+    let t = `Olá, Anjos! 🍦 ${revenda ? "Tenho interesse em *revender* e gostaria" : "Gostaria"} de consultar valores destes itens:\n`;
+    for (const g in grupos) t += `\n*${g}*\n` + grupos[g].map(x => "• " + x).join("\n") + "\n";
+    t += `\n*Nome:* ${nome}`;
+    if (revenda && $("#loja").value.trim()) t += `\n*Comércio:* ${$("#loja").value.trim()}`;
+    if ($("#obs").value.trim()) t += `\n*Obs.:* ${$("#obs").value.trim()}`;
+    window.open(zap(t), "_blank");
+  };
+
+  desenharAbas(); desenharGrade(); atualizarLista();
+</script>
+</body>
+</html>

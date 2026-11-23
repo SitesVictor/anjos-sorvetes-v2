@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Seja revendedor — Anjos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="description" content="Tenha os sorvetes Anjos no seu comércio. Sorveterias, lanchonetes, mercados e quiosques: fale direto com a fábrica.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Anjos">
+<meta property="og:title" content="Seja revendedor — Anjos">
+<meta property="og:description" content="Tenha os sorvetes Anjos no seu comércio. Sorveterias, lanchonetes, mercados e quiosques: fale direto com a fábrica.">
+<meta property="og:url" content="https://sitesvictor.github.io/anjos-sorvetes-v2/revenda.html">
+<meta property="og:image" content="https://sitesvictor.github.io/anjos-sorvetes-v2/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#3b98b0">
+<link rel="icon" href="img/icone.png">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .hero.marrom .tag{background:rgba(255,255,255,.15);color:var(--amarelo)}
+  .hfoto{position:relative;border-radius:28px;overflow:hidden;border:6px solid #fff;box-shadow:0 26px 44px -18px rgba(0,0,0,.5);transform:rotate(2deg)}
+  .hfoto img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+  .hfoto span{position:absolute;left:1rem;bottom:1rem;background:#fff;color:var(--marrom2);font-weight:900;padding:.45rem .8rem;border-radius:12px;font-size:.9rem}
+  @media (max-width:860px){.hfoto{order:-1}}
+  .linhas-r{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;margin-top:1.6rem}
+  .linhas-r a{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:1;display:block;text-decoration:none;box-shadow:0 8px 20px -14px rgba(31,95,114,.6)}
+  .linhas-r a>img,.linhas-r a>.sem-foto{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+  .linhas-r a:hover>img{transform:scale(1.06)}
+  .linhas-r a>b{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .7rem .6rem;background:linear-gradient(transparent,rgba(0,0,0,.65));color:#fff;font-family:"Baloo 2";font-size:1.1rem}
+  .linhas-r a>.sem-foto span{display:none}
+  @media (max-width:860px){.linhas-r{grid-template-columns:repeat(2,1fr)}}
+  .vant{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:-3.2rem;position:relative;z-index:2}
+  .vant div{background:#fff;border-radius:var(--raio);padding:1.4rem 1.2rem;box-shadow:var(--sombra)}
+  .vant span{font-size:1.8rem}
+  .vant b{display:block;font-family:"Baloo 2";font-size:1.3rem;color:var(--marrom2);margin:.3rem 0 .2rem}
+  .vant p{color:var(--suave);font-weight:700;font-size:.92rem}
+  @media (max-width:900px){.vant{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:520px){.vant{grid-template-columns:1fr}}
+
+  .quem{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem}
+  .quem div{background:#fff;border-radius:20px;padding:1.3rem;text-align:center;font-weight:900;color:var(--azulEsc);box-shadow:0 8px 20px -14px rgba(31,95,114,.6)}
+  .quem div span{display:block;font-size:2.2rem;margin-bottom:.3rem}
+  @media (max-width:760px){.quem{grid-template-columns:repeat(2,1fr)}}
+
+  .etapas{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.2rem;position:relative}
+  .etapas div{background:var(--creme);border-radius:var(--raio);padding:1.4rem 1.2rem;position:relative}
+  .etapas div b{display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:50%;background:var(--marrom);color:#fff;font-family:"Baloo 2";font-size:1.3rem;margin-bottom:.7rem}
+  .etapas h3{font-size:1.3rem;color:var(--azulEsc);margin-bottom:.3rem}
+  .etapas p{color:var(--suave);font-weight:700;font-size:.93rem}
+  @media (max-width:860px){.etapas{grid-template-columns:1fr 1fr}}
+  @media (max-width:520px){.etapas{grid-template-columns:1fr}}
+
+  .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+  .chips a{display:flex;align-items:center;gap:.4rem;text-decoration:none;background:#fff;border:2px solid #dbeef3;border-radius:999px;padding:.35rem .9rem .35rem .4rem;font-weight:800;color:var(--azulEsc)}
+  .chips a svg{width:28px;height:28px}
+
+  .cadastro{display:grid;grid-template-columns:1fr 1.1fr;gap:2.5rem;align-items:start}
+  .form-rev{background:#fff;border-radius:28px;padding:1.8rem;box-shadow:var(--sombra);border-top:6px solid var(--amarelo)}
+  .form-rev h3{font-size:1.8rem;color:var(--marrom2);margin-bottom:.3rem}
+  .form-rev .btn{width:100%;margin-top:.4rem}
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.2rem 0 1rem}
+  .checks label{display:flex;gap:.55rem;align-items:center;font-weight:800;font-size:.92rem;background:var(--ceu);border-radius:12px;padding:.65rem .75rem;cursor:pointer;min-height:46px}
+  .checks label:has(input:checked){background:#d6eef5;box-shadow:inset 0 0 0 2px var(--azul2)}
+  .checks input{accent-color:var(--azul2);width:1.25rem;height:1.25rem;flex:none}
+  @media (max-width:420px){.checks{grid-template-columns:1fr}}
+  .faq{display:grid;gap:.7rem;margin-top:1.4rem}
+  .faq details{background:#fff;border-radius:16px;box-shadow:0 8px 20px -14px rgba(31,95,114,.6)}
+  .faq summary{cursor:pointer;list-style:none;padding:1rem 2.8rem 1rem 1.1rem;font-weight:900;color:var(--azulEsc);position:relative}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";position:absolute;right:1rem;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--azul2);transition:transform .2s}
+  .faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+  .faq p{padding:0 1.1rem 1rem;color:var(--suave);font-weight:700}
+  @media (max-width:900px){.cadastro{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<section class="hero marrom">
+  <div class="wrap">
+    <div>
+      <span class="selo">🏪 Para comércios</span>
+      <h1>Venda Anjos<br><em>no seu comércio</em></h1>
+      <p class="lead">Sorveterias, lanchonetes, mercados, padarias e quiosques: tenha a linha completa Anjos para os seus clientes, com atendimento direto da fábrica em Anchieta.</p>
+      <div class="ctas">
+        <a class="btn am" href="#cadastro">Quero ser revendedor</a>
+        <a class="btn cont" href="pedidos.html">Ver os produtos</a>
+      </div>
+    </div>
+    <div class="hfoto"><img src="img/md/fachada.webp" alt="Fábrica e Empório Anjos"><span>📍 Fábrica em Anchieta (ES)</span></div>
+  </div>
+  <svg class="onda" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 30c120 20 240 30 360 22S600 10 720 12s240 30 360 34 240-10 360-24v38H0z"/></svg>
+</section>
+
+<div class="wrap">
+  <div class="vant">
+    <div class="rv"><span>🍦</span><b id="vSab">60+ sabores</b><p>Picolés, paletas, potes, cones, sundaes e copinhos.</p></div>
+    <div class="rv"><span>🏭</span><b>Direto da fábrica</b><p>Produção própria em Anchieta, perto do seu comércio.</p></div>
+    <div class="rv"><span>🥄</span><b>Para todos os públicos</b><p>Do frutado ao recheado, com linha zero açúcar.</p></div>
+    <div class="rv"><span>🤝</span><b>Atendimento próximo</b><p>Fale direto com a equipe da fábrica pelo WhatsApp.</p></div>
+  </div>
+</div>
+
+<section class="bl">
+  <div class="wrap">
+    <span class="tag">Para quem é</span>
+    <h2 class="tt">Anjos combina com o seu negócio</h2>
+    <div class="quem">
+      <div class="rv"><span>🍨</span>Sorveterias</div>
+      <div class="rv"><span>🍔</span>Lanchonetes</div>
+      <div class="rv"><span>🛒</span>Mercados e padarias</div>
+      <div class="rv"><span>🏖️</span>Quiosques de praia</div>
+    </div>
+  </div>
+</section>
+
+<section class="bl claro">
+  <div class="wrap">
+    <span class="tag">Como funciona</span>
+    <h2 class="tt">Do primeiro contato ao freezer cheio</h2>
+    <div class="etapas">
+      <div class="rv"><b>1</b><h3>Cadastro</h3><p>Preencha o formulário abaixo com os dados do seu comércio.</p></div>
+      <div class="rv"><b>2</b><h3>Conversa</h3><p>Nossa equipe chama no WhatsApp para entender o seu negócio.</p></div>
+      <div class="rv"><b>3</b><h3>Tabela e mix</h3><p>Você recebe a tabela de revenda e escolhe os produtos.</p></div>
+      <div class="rv"><b>4</b><h3>Entrega</h3><p>Combinamos a entrega e o seu comércio já começa a vender Anjos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="bl">
+  <div class="wrap">
+    <span class="tag">Linha de produtos</span>
+    <h2 class="tt">O que você pode revender</h2>
+    <p class="sub">Toque numa linha para ver todos os sabores.</p>
+    <div class="linhas-r" id="chips"></div>
+  </div>
+</section>
+
+<section class="bl claro" id="cadastro">
+  <div class="wrap cadastro">
+    <div>
+      <span class="tag">Cadastro</span>
+      <h2 class="tt">Vamos conversar?</h2>
+      <p class="sub">Preencha os dados e a mensagem chega pronta no WhatsApp da fábrica.</p>
+      <div class="faq">
+        <details><summary>Preciso ter freezer?</summary><p>Para manter os sorvetes na temperatura certa, sim. Conte no formulário se já tem um, e a equipe orienta sobre o melhor caminho para o seu caso.</p></details>
+        <details><summary>Quais cidades vocês atendem?</summary><p>A fábrica fica em Anchieta (ES). Informe a sua cidade no cadastro para confirmarmos a entrega.</p></details>
+        <details><summary>Tem pedido mínimo?</summary><p>As condições de revenda, como pedido mínimo e tabela de preços, são passadas pela equipe no primeiro contato.</p></details>
+        <details><summary>Posso escolher os sabores?</summary><p>Sim. Você monta o seu mix com as linhas e sabores que fazem mais sentido para os seus clientes.</p></details>
+      </div>
+    </div>
+    <form class="form-rev" id="formRev">
+      <h3>Quero ser revendedor</h3>
+      <p class="obs" style="text-align:left;margin:0 0 1rem">Leva menos de 1 minuto.</p>
+      <label class="campo"><span>Seu nome</span><input id="rNome" required autocomplete="name"></label>
+      <label class="campo"><span>Nome do comércio</span><input id="rLoja" required></label>
+      <div class="duas">
+        <label class="campo"><span>Cidade</span><input id="rCidade" required></label>
+        <label class="campo"><span>Tipo</span>
+          <select id="rTipo"><option>Sorveteria</option><option>Lanchonete</option><option>Mercado / Padaria</option><option>Quiosque / Praia</option><option>Outro</option></select>
+        </label>
+      </div>
+      <span style="font-weight:900;font-size:.9rem;color:var(--azulEsc)">Tem interesse em</span>
+      <div class="checks" id="checks"></div>
+      <label class="campo"><span>Já tem freezer?</span>
+        <select id="rFreezer"><option>Sim</option><option>Não</option><option>Ainda não sei</option></select>
+      </label>
+      <label class="campo"><span>Mensagem (opcional)</span><textarea id="rMsg" rows="2" placeholder="Ex.: quero começar com picolés frutados"></textarea></label>
+      <button class="btn zap" type="submit">Enviar cadastro pelo WhatsApp</button>
+      <p class="obs">Sua mensagem chega direto na fábrica.</p>
+    </form>
+  </div>
+</section>
+
+<script src="comum.js"></script>
+<script>
+  $("#vSab").textContent = SABORES_UNICOS + " sabores";
+  const COR_LINHA = { potes:"#f28aa8", cobertura:"#f8c21d", recheados:"#9bd47a", leite:"#f7d54a", frutados:"#8d5bb5", zero:"#8a5a3f", paletas:"#f28aa8", cones:"#8a5a3f", sundae:"#ef6b7c", copinho:"#5bb6cc" };
+  $("#chips").innerHTML = CATS.map(c => `<a href="pedidos.html?cat=${c.id}">${fotoCat(c)}<b>${c.nome}</b></a>`).join("");
+  $("#checks").innerHTML = CATS.map(c => `<label><input type="checkbox" value="${c.nome}">${c.nome}</label>`).join("");
+  montarLayout("revenda");
+  $("#formRev").addEventListener("submit", e => {
+    e.preventDefault();
+    const linhas = [...document.querySelectorAll("#checks input:checked")].map(i => i.value);
+    let t = `Olá, Anjos! 🏪 Quero ser revendedor.\n\n*Nome:* ${$("#rNome").value.trim()}\n*Comércio:* ${$("#rLoja").value.trim()} (${$("#rTipo").value})\n*Cidade:* ${$("#rCidade").value.trim()}\n*Tem freezer:* ${$("#rFreezer").value}`;
+    if (linhas.length) t += `\n*Interesse em:* ${linhas.join(", ")}`;
+    if ($("#rMsg").value.trim()) t += `\n*Mensagem:* ${$("#rMsg").value.trim()}`;
+    window.open(zap(t), "_blank");
+  });
+</script>
+</body>
+</html>
