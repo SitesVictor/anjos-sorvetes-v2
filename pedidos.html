@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Pedidos — Anjos</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <meta name="description" content="Escolha seus sabores Anjos e envie a lista pelo WhatsApp. Picolés, paletas, potes, cones e sundaes.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -20,112 +18,180 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#3b98b0">
 <link rel="icon" href="img/icone.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css">
 <style>
-  .barra-cat{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:-2.2rem 0 1.2rem;position:relative;z-index:2}
-  .busca{flex:1 1 260px;display:flex;align-items:center;gap:.5rem;background:#fff;border:2px solid #dbeef3;border-radius:16px;padding:.2rem 1rem;box-shadow:var(--sombra)}
-  .busca input{border:0;outline:0;font:inherit;font-weight:700;padding:.75rem 0;width:100%;background:transparent}
-  .abas{display:flex;gap:.45rem;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:thin;margin-bottom:1.2rem}
-  .aba{flex:none;display:flex;align-items:center;gap:.4rem;font-weight:800;padding:.55rem 1rem;border-radius:999px;background:#fff;border:2px solid #dbeef3;color:var(--azulEsc);font-size:.95rem}
-  .aba b{font-size:.75rem;background:var(--ceu);border-radius:999px;padding:.05rem .45rem;color:var(--azul2)}
-  .aba.on{background:var(--azul2);border-color:var(--azul2);color:#fff}
-  .aba.on b{background:rgba(255,255,255,.25);color:#fff}
-  .cat-desc{display:flex;align-items:center;gap:1.2rem;background:#fff;border-radius:var(--raio);padding:.8rem;box-shadow:var(--sombra);margin-bottom:1.2rem}
-  .cat-desc .cf{width:150px;height:110px;flex:none;border-radius:16px;object-fit:cover;display:grid}
-  .cat-desc .cf.sem-foto{font-size:1rem}
-  .cat-desc .cf.mosaicinho{display:grid;grid-template-columns:1fr 1fr;gap:3px;overflow:hidden}
-  .cat-desc .cf.mosaicinho img{width:100%;height:100%;object-fit:cover}
-  @media (max-width:520px){.cat-desc .cf{width:96px;height:96px}}
-  .cat-desc h3{font-size:1.6rem;color:var(--azulEsc)}
-  .cat-desc p{color:var(--suave);font-weight:700;font-size:.95rem}
-  .grade{display:grid;gap:1.4rem}
+  html{scroll-padding-top:200px}
+  /* topo enxuto */
+  .topo-ped{background:linear-gradient(180deg,var(--azul) 0%,var(--azul2) 100%);color:#fff;padding:1.8rem 0 1.4rem}
+  .topo-ped .wrap{display:grid;grid-template-columns:1fr auto;gap:1rem 2rem;align-items:center}
+  .topo-ped h1{font-size:clamp(2rem,4.6vw,3rem)}
+  .topo-ped p{font-weight:700;opacity:.95;max-width:34rem}
+  .topo-ped .status{margin-top:.7rem}
+  .passinhos{display:flex;gap:.5rem;flex-wrap:wrap}
+  .passinhos span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:12px;padding:.45rem .75rem;font-weight:800;font-size:.85rem}
+  .passinhos b{color:var(--amarelo)}
+  @media (max-width:760px){.topo-ped .wrap{grid-template-columns:1fr}.passinhos{display:none}}
+
+  /* novidades */
+  .novs{padding:1.2rem 0 .4rem}
+  .novs h2{font-size:1.4rem;color:var(--marrom2);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+  .novs-l{display:flex;gap:.8rem;overflow-x:auto;padding-bottom:.6rem;scroll-snap-type:x mandatory;scrollbar-width:thin}
+  .nov{flex:none;width:250px;display:flex;gap:.8rem;align-items:center;background:#fff;border-radius:18px;padding:.6rem;box-shadow:0 8px 20px -14px rgba(31,95,114,.6);scroll-snap-align:start;border:2px solid transparent}
+  .nov.sel{border-color:var(--amarelo)}
+  .nov img{width:72px;height:72px;border-radius:14px;object-fit:cover;flex:none}
+  .nov b{display:block;font-size:1rem}
+  .nov small{display:block;color:var(--suave);font-weight:700;font-size:.78rem;margin-bottom:.35rem}
+
+  /* filtros fixos */
+  .filtros{position:sticky;top:66px;z-index:20;background:rgba(255,250,240,.96);backdrop-filter:blur(8px);padding:.8rem 0 .3rem;border-bottom:1px solid #f0e6cf}
+  .busca{display:flex;align-items:center;gap:.5rem;background:#fff;border:2px solid #dbeef3;border-radius:14px;padding:.1rem .9rem}
+  .busca input{border:0;outline:0;font:inherit;font-weight:700;padding:.65rem 0;width:100%;background:transparent}
+  .busca:focus-within{border-color:var(--azul)}
+  .abas{display:flex;gap:.9rem;overflow-x:auto;padding:.7rem .1rem .5rem;scrollbar-width:none}
+  .abas::-webkit-scrollbar{display:none}
+  .aba{flex:none;display:flex;flex-direction:column;align-items:center;gap:.3rem;width:74px;font-weight:800;font-size:.76rem;color:var(--azulEsc);text-align:center;line-height:1.15}
+  .aba .ci{width:60px;height:60px;border-radius:50%;overflow:hidden;border:3px solid #fff;box-shadow:0 0 0 2px #dbeef3;display:grid;place-items:center;background:#fff;transition:box-shadow .15s,transform .15s}
+  .aba .ci img{width:100%;height:100%;object-fit:cover}
+  .aba .ci.todos img{width:70%;height:70%;object-fit:contain}
+  .aba .ci .sem-foto{width:100%;height:100%}
+  .aba .ci .sem-foto.zero b{font-size:1.15rem}
+  .aba .ci .sem-foto.zero span{font-size:.5rem;letter-spacing:.05em}
+  .aba:hover .ci{transform:translateY(-2px)}
+  .aba.on .ci{box-shadow:0 0 0 3px var(--azul2)}
+  .aba.on{color:var(--azul2)}
+  @media (max-width:600px){.filtros{top:60px}.aba{width:64px}.aba .ci{width:52px;height:52px}}
+
+  /* lista de sabores */
+  .grade{display:grid;gap:1.3rem;padding-top:1.2rem}
   .grupo{background:#fff;border-radius:var(--raio);box-shadow:var(--sombra);overflow:hidden}
-  .grupo h3{font-size:1.35rem;color:var(--azulEsc);padding:.9rem 1.2rem;background:var(--ceu);display:flex;justify-content:space-between;align-items:center}
-  .grupo h3 small{font-family:Nunito;font-size:.8rem;font-weight:800;color:var(--suave)}
-  .grupo .nota{padding:.7rem 1.2rem 0;font-weight:700;color:var(--suave);font-size:.92rem}
+  .grupo-top{display:flex;align-items:center;gap:.9rem;padding:.8rem 1.1rem;background:var(--ceu)}
+  .grupo-top img,.grupo-top .sem-foto{width:52px;height:52px;border-radius:14px;object-fit:cover;flex:none}
+  .grupo-top .sem-foto.zero b{font-size:1.1rem}.grupo-top .sem-foto.zero span{font-size:.5rem}
+  .grupo-top h3{font-size:1.3rem;color:var(--azulEsc)}
+  .grupo-top p{font-weight:700;color:var(--suave);font-size:.85rem}
   .itens-l{list-style:none;display:grid;grid-template-columns:1fr 1fr}
-  .itens-l li{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.7rem 1.2rem;border-bottom:1px solid #eef5f7;min-height:58px}
+  .itens-l li{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.65rem 1.1rem;border-bottom:1px solid #eef5f7;min-height:58px}
   .itens-l li:nth-child(odd){border-right:1px solid #eef5f7}
   .itens-l li.sel{background:#fffbea}
-  .itens-l .nm{font-weight:800;font-size:1rem}
-  .itens-l .novo{display:inline-block;margin-left:.4rem;background:var(--amarelo);color:var(--marrom2);font-weight:900;font-size:.66rem;padding:.1rem .45rem;border-radius:999px;vertical-align:middle}
-  .qtd{display:flex;align-items:center;gap:.45rem;flex:none}
-  .qtd button{width:32px;height:32px;border-radius:50%;font-weight:900;font-size:1.15rem;display:grid;place-items:center}
+  .nm{font-weight:800;font-size:1rem}
+  .novo{display:inline-block;margin-left:.4rem;background:var(--amarelo);color:var(--marrom2);font-weight:900;font-size:.66rem;padding:.1rem .45rem;border-radius:999px;vertical-align:middle}
+  .acoes{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:flex-end}
+  .qtd{display:inline-flex;align-items:center;gap:.35rem;flex:none}
+  .qtd button{width:32px;height:32px;border-radius:50%;font-weight:900;font-size:1.1rem;display:grid;place-items:center}
   .qtd .m{background:var(--ceu);color:var(--azul2)}
   .qtd .p{background:var(--azul2);color:#fff}
   .qtd span{min-width:1.2rem;text-align:center;font-weight:900}
-  .add{flex:none;padding:.4rem .9rem;border-radius:999px;background:var(--ceu);color:var(--azul2);font-weight:900;font-size:.9rem}
+  .qtd em{font-style:normal;font-weight:900;font-size:.78rem;color:var(--marrom2);background:#fff1c7;border-radius:8px;padding:.1rem .4rem}
+  .add{flex:none;padding:.42rem .85rem;border-radius:999px;background:var(--ceu);color:var(--azul2);font-weight:900;font-size:.88rem;white-space:nowrap}
   .add:hover{background:var(--azul2);color:#fff}
-  @media (max-width:700px){.itens-l{grid-template-columns:1fr}.itens-l li:nth-child(odd){border-right:0}}
-  .vazio{grid-column:1/-1;text-align:center;padding:2rem;color:var(--suave);font-weight:800}
-  .aviso-precos{margin-top:1.6rem;display:flex;gap:.8rem;align-items:center;background:#fff7d9;border:2px dashed #ecc54d;border-radius:16px;padding:.9rem 1.1rem;font-weight:800;color:#7a5b00}
+  .grupo .nota{padding:.7rem 1.1rem 0;font-weight:700;color:var(--suave);font-size:.9rem}
+  .vazio{text-align:center;padding:2.5rem 1rem;color:var(--suave);font-weight:800;background:#fff;border-radius:var(--raio)}
+  @media (max-width:760px){
+    .itens-l{grid-template-columns:1fr}.itens-l li:nth-child(odd){border-right:0}
+    .itens-l li.pote{flex-direction:column;align-items:stretch;gap:.5rem}
+    .itens-l li.pote .acoes{justify-content:flex-start}
+  }
+  .aviso-precos{margin:1.4rem 0 3rem;display:flex;gap:.8rem;align-items:center;background:#fff7d9;border:2px dashed #ecc54d;border-radius:16px;padding:.9rem 1.1rem;font-weight:800;color:#7a5b00}
 
+  /* barra da lista */
   .lista{position:fixed;left:50%;bottom:16px;transform:translate(-50%,140%);z-index:40;width:min(680px,calc(100% - 24px));background:var(--azulEsc);color:#fff;border-radius:20px;box-shadow:0 18px 40px rgba(0,0,0,.3);display:flex;align-items:center;gap:1rem;padding:.8rem .8rem .8rem 1.2rem;transition:transform .3s}
   .lista.on{transform:translate(-50%,0)}
   .lista b{font-family:"Baloo 2";font-size:1.3rem}
   .lista small{display:block;opacity:.8;font-weight:700}
   .lista .btn{margin-left:auto;padding:.7rem 1.1rem}
 
-  dialog{border:0;border-radius:24px;padding:0;width:min(560px,calc(100% - 20px));max-height:calc(100dvh - 30px);box-shadow:0 30px 70px rgba(0,0,0,.35);margin:auto}
+  /* janela da lista */
+  dialog{border:0;border-radius:24px;padding:0;width:min(580px,calc(100% - 20px));max-height:calc(100dvh - 24px);box-shadow:0 30px 70px rgba(0,0,0,.35);margin:auto}
   dialog::backdrop{background:rgba(14,46,56,.6)}
-  .dlg{padding:1.5rem;overflow:auto;max-height:calc(100dvh - 30px)}
-  .dlg h3{font-size:1.9rem;color:var(--azulEsc);display:flex;justify-content:space-between;align-items:center}
-  .dlg h3 button{font-size:1.6rem;color:var(--suave)}
-  .itens{list-style:none;margin:1rem 0;display:grid;gap:.5rem}
-  .itens li{display:flex;justify-content:space-between;align-items:center;gap:.5rem;background:var(--ceu);border-radius:12px;padding:.6rem .8rem;font-weight:800}
-  .itens li small{display:block;color:var(--suave);font-weight:700;font-size:.78rem}
-  .itens li button{color:#c0392b;font-weight:900}
-  .modo{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:1rem 0}
-  .modo label{border:2px solid #dbeef3;border-radius:14px;padding:.7rem;text-align:center;font-weight:900;cursor:pointer;color:var(--azulEsc)}
-  .modo input{display:none}
+  .dlg{padding:1.4rem;overflow:auto;max-height:calc(100dvh - 24px)}
+  .dlg-top{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+  .dlg-top h3{font-size:1.8rem;color:var(--azulEsc)}
+  .dlg-top button{font-size:1.5rem;color:var(--suave);width:40px;height:40px}
+  .itens-d{list-style:none;margin:.8rem 0;display:grid;gap:.45rem}
+  .itens-d li{display:flex;justify-content:space-between;align-items:center;gap:.6rem;background:var(--ceu);border-radius:12px;padding:.5rem .6rem .5rem .9rem;font-weight:800}
+  .itens-d li small{display:block;color:var(--suave);font-weight:700;font-size:.76rem}
+  .itens-d .qtd .m,.itens-d .qtd .p{width:30px;height:30px}
+  .itens-d .qtd .m{background:#fff}
+  .limpar{font-weight:900;color:#c0392b;font-size:.88rem;padding:.3rem 0}
+  .sec-t{font-weight:900;color:var(--azulEsc);font-size:.9rem;margin:1rem 0 .45rem}
+  .modo{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+  .modo label{border:2px solid #dbeef3;border-radius:14px;padding:.65rem;text-align:center;font-weight:900;cursor:pointer;color:var(--azulEsc)}
+  .modo input{position:absolute;opacity:0;pointer-events:none}
   .modo label:has(input:checked){border-color:var(--azul2);background:var(--ceu);color:var(--azul2)}
-  .dlg .btn{width:100%;margin-top:.4rem}
+  .dias{display:flex;gap:.45rem;overflow-x:auto;padding-bottom:.3rem}
+  .dias button{flex:none;border:2px solid #dbeef3;border-radius:12px;padding:.45rem .7rem;font-weight:800;color:var(--azulEsc);background:#fff;text-align:center;line-height:1.15}
+  .dias button small{display:block;font-size:.72rem;color:var(--suave);font-weight:700}
+  .dias button.on{border-color:var(--azul2);background:var(--ceu);color:var(--azul2)}
+  .dias button:disabled{opacity:.4;cursor:not-allowed}
+  .previa{background:#e9fbe9;border:1px solid #bfe9c4;border-radius:14px;padding:.8rem .9rem;font-size:.86rem;font-weight:600;white-space:pre-wrap;color:#1d3b22;max-height:180px;overflow:auto;font-family:inherit}
+  details.prev summary{cursor:pointer;font-weight:900;color:var(--azul2);font-size:.9rem;margin:1rem 0 .5rem}
+  .dlg .btn{width:100%;margin-top:.8rem}
 </style>
 </head>
 <body>
 
-<section class="hero curto">
+<section class="topo-ped">
   <div class="wrap">
     <div>
-      <span class="selo">🛒 Pedidos</span>
-      <h1>Monte seu pedido</h1>
-      <p class="lead">Escolha os sabores, envie a lista pelo WhatsApp e retire no Empório. Respondemos com valores e disponibilidade.</p>
+      <h1>Faça seu pedido</h1>
+      <p>Escolha os sabores, envie a lista pelo WhatsApp e retire no Empório.</p>
       <div class="status" id="status"><i></i><span>…</span></div>
     </div>
+    <div class="passinhos"><span><b>1</b> Escolha</span><span><b>2</b> Envie no WhatsApp</span><span><b>3</b> Retire no Empório</span></div>
   </div>
-  <svg class="onda" viewBox="0 0 1440 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 30c120 20 240 30 360 22S600 10 720 12s240 30 360 34 240-10 360-24v38H0z"/></svg>
 </section>
 
-<section style="padding-bottom:3rem">
+<section class="novs">
   <div class="wrap">
-    <div class="barra-cat">
-      <label class="busca"><span>🔎</span><input id="busca" type="search" placeholder="Buscar sabor (ex.: morango, ninho…)"></label>
-    </div>
-    <div class="abas" id="abas"></div>
-    <div class="cat-desc" id="catDesc"></div>
-    <div class="grade" id="grade"></div>
-    <div class="aviso-precos"><span style="font-size:1.4rem">💬</span><div>Os valores variam por tamanho e quantidade. Monte sua lista e a gente responde rapidinho pelo WhatsApp. É comércio? <a href="revenda.html">Veja a área de revenda</a>.</div></div>
+    <h2>✨ Novidades</h2>
+    <div class="novs-l" id="novs"></div>
   </div>
 </section>
+
+<div class="filtros">
+  <div class="wrap">
+    <label class="busca"><span>🔎</span><input id="busca" type="search" placeholder="Buscar sabor (ex.: morango, ninho…)" aria-label="Buscar sabor"></label>
+    <nav class="abas" id="abas" aria-label="Linhas de produtos"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="grade" id="grade"></div>
+  <div class="aviso-precos"><span style="font-size:1.4rem">💬</span><div>Os valores variam por tamanho e quantidade. Monte sua lista e a gente responde rapidinho pelo WhatsApp. É comércio? <a href="revenda.html">Veja a área de revenda</a>.</div></div>
+</main>
 
 <div class="lista" id="lista">
   <div><b id="lQtd">0 itens</b><small>na sua lista</small></div>
   <button class="btn am" id="abrirLista">Ver lista e enviar</button>
 </div>
 
-<dialog id="dlg">
+<dialog id="dlg" aria-labelledby="dlgT">
   <div class="dlg">
-    <h3>Sua lista <button id="fechar" aria-label="Fechar">✕</button></h3>
-    <ul class="itens" id="itens"></ul>
+    <div class="dlg-top"><h3 id="dlgT">Sua lista</h3><button id="fechar" aria-label="Fechar">✕</button></div>
+    <ul class="itens-d" id="itens"></ul>
+    <button class="limpar" id="limpar">Limpar lista</button>
+
+    <div class="sec-t">O pedido é</div>
     <div class="modo">
       <label><input type="radio" name="modo" value="consumo" checked>🍦 Para mim</label>
       <label><input type="radio" name="modo" value="revenda">🏪 Para revender</label>
     </div>
+
+    <div class="sec-t">Quando quer retirar no Empório?</div>
+    <div class="dias" id="dias"></div>
+    <label class="campo" style="margin-top:.6rem"><span>Horário aproximado</span>
+      <select id="hora"></select>
+    </label>
+
     <label class="campo"><span>Seu nome</span><input id="nome" autocomplete="name"></label>
     <label class="campo" id="campoLoja" hidden><span>Nome do comércio e cidade</span><input id="loja"></label>
-    <label class="campo"><span>Observações (opcional)</span><textarea id="obs" rows="2" placeholder="Ex.: retiro no empório amanhã à tarde"></textarea></label>
-    <button class="btn zap" id="enviar">Consultar valores no WhatsApp</button>
-    <p class="obs">A mensagem abre pronta no WhatsApp da Anjos.</p>
+    <label class="campo"><span>Observações (opcional)</span><textarea id="obs" rows="2" placeholder="Ex.: se não tiver morango, pode ser frutas vermelhas"></textarea></label>
+
+    <details class="prev"><summary>Ver a mensagem que será enviada</summary><pre class="previa" id="previa"></pre></details>
+    <button class="btn zap" id="enviar">Enviar pedido no WhatsApp</button>
+    <p class="obs">A mensagem abre pronta no WhatsApp da Anjos. Eles confirmam valores e disponibilidade.</p>
   </div>
 </dialog>
 
@@ -134,73 +200,155 @@
   montarLayout("pedidos");
   desenharStatus("#status"); setInterval(() => desenharStatus("#status"), 60000);
 
-  const qtd = (() => { try { return JSON.parse(sessionStorage.getItem("anjos_lista") || "{}"); } catch(e) { return {}; } })();
-  const salvar = () => { try { sessionStorage.setItem("anjos_lista", JSON.stringify(qtd)); } catch(e) {} };
+  const TAMANHOS = { potes: ["1/2 L", "1 L"] };
+  const CHAVE = "anjos_lista";
+  // qtd: { "potes|Morango@1 L": 2, "cones|Chocolate": 1 }
+  const qtd = (() => { try { return JSON.parse(localStorage.getItem(CHAVE) || "{}"); } catch(e) { return {}; } })();
+  for (const k in qtd) { const id = k.split("@")[0]; if (!ITENS.some(i => i.id === id) || !(qtd[k] > 0)) delete qtd[k]; }
+  const salvar = () => { try { localStorage.setItem(CHAVE, JSON.stringify(qtd)); } catch(e) {} };
+  const itemDe = k => ITENS.find(i => i.id === k.split("@")[0]);
+  const tamDe = k => k.split("@")[1] || "";
   const param = new URLSearchParams(location.search).get("cat");
   let catAtual = CATS.some(c => c.id === param) ? param : "todos";
 
+  // ---------- novidades ----------
+  const NOV_FOTOS = { "cobertura|Brigadeiro":"brigadeiro", "cobertura|Delírio":"delirio", "leite|Pistache":"pistache", "paletas|Avelã":"paleta-avela" };
+  function desenharNovidades() {
+    $("#novs").innerHTML = ITENS.filter(i => i.novo).map(i => { const n = qtd[i.id] || 0;
+      return `<div class="nov ${n?"sel":""}"><img src="img/sm/${NOV_FOTOS[i.id] || i.cat.foto.split("/").pop().replace(".webp","")}.webp" alt="" loading="lazy">
+        <div><b>${i.sabor}</b><small>${i.cat.nome}</small>${botoes(i)}</div></div>`; }).join("");
+  }
+
+  // ---------- abas com foto ----------
   function desenharAbas() {
-    const abas = [{ id:"todos", nome:"Todos", n: ITENS.length }, ...CATS.map(c => ({ id:c.id, nome:c.nome, n:c.s.length }))];
-    $("#abas").innerHTML = abas.map(a => `<button class="aba ${a.id===catAtual?"on":""}" data-c="${a.id}">${a.nome}<b>${a.n}</b></button>`).join("");
+    const abas = [{ id:"todos", nome:"Todos", ci:`<span class="ci todos"><img src="img/icone.png" alt=""></span>` },
+      ...CATS.map(c => ({ id:c.id, nome:c.nome.replace("Picolé ","Picolé<br>"), ci:`<span class="ci">${fotoCat(c)}</span>` }))];
+    $("#abas").innerHTML = abas.map(a => `<button class="aba ${a.id===catAtual?"on":""}" data-c="${a.id}" aria-pressed="${a.id===catAtual}">${a.ci}<span>${a.nome}</span></button>`).join("");
     const on = $("#abas .on"); if (on) on.scrollIntoView({ block:"nearest", inline:"center" });
   }
-  $("#abas").addEventListener("click", e => { const b = e.target.closest(".aba"); if (!b) return; catAtual = b.dataset.c;
-    history.replaceState(null, "", catAtual === "todos" ? "pedidos.html" : "pedidos.html?cat=" + catAtual); desenharAbas(); desenharGrade(); });
+  $("#abas").addEventListener("click", e => { const b = e.target.closest(".aba"); if (!b) return;
+    catAtual = b.dataset.c; $("#busca").value = "";
+    history.replaceState(null, "", catAtual === "todos" ? "pedidos.html" : "pedidos.html?cat=" + catAtual);
+    desenharAbas(); desenharGrade();
+    const g = $("#grade"); const y = g.getBoundingClientRect().top + scrollY - $(".filtros").offsetHeight - 70;
+    if (scrollY > y) scrollTo({ top: y, behavior: "smooth" });
+  });
 
+  // ---------- botões de quantidade ----------
+  function stepper(k, rotulo) {
+    const n = qtd[k] || 0;
+    return `<span class="qtd">${rotulo ? `<em>${rotulo}</em>` : ""}<button class="m" data-k="${k}" data-d="-1" aria-label="Remover">−</button><span>${n}</span><button class="p" data-k="${k}" data-d="1" aria-label="Adicionar">+</button></span>`;
+  }
+  function botoes(i) {
+    const tams = TAMANHOS[i.cat.id];
+    if (!tams) return (qtd[i.id] || 0) ? stepper(i.id) : `<button class="add" data-k="${i.id}" data-d="1">+ Adicionar</button>`;
+    return `<span class="acoes">${tams.map(t => { const k = i.id + "@" + t;
+      return (qtd[k] || 0) ? stepper(k, t) : `<button class="add" data-k="${k}" data-d="1">+ ${t}</button>`; }).join("")}</span>`;
+  }
+  const temNaLista = i => Object.keys(qtd).some(k => k.split("@")[0] === i.id);
+
+  // ---------- lista de sabores ----------
+  const NOTA = { copinho: "Os sabores do copinho variam. Adicione e combinamos pelo WhatsApp.", potes: "Escolha o tamanho de cada pote: 1/2 litro ou 1 litro." };
   function desenharGrade() {
     const q = norm($("#busca").value.trim());
-    const c = CATS.find(x => x.id === catAtual);
-    $("#catDesc").innerHTML = c ? `${fotoCat(c, "cf")}<div><h3>${c.nome}</h3><p>${c.desc}${c.tam ? " Tamanhos: " + c.tam + "." : ""}</p></div>`
-      : `<div class="cf mosaicinho"><img src="img/sm/cobertura.webp" alt=""><img src="img/sm/frutados.webp" alt=""><img src="img/sm/potes.webp" alt=""><img src="img/sm/cones.webp" alt=""></div><div><h3>Todos os produtos</h3><p>Picolés, paletas, potes, cones, sundaes e copinhos. Itens com selo <b>Novo</b> são lançamentos.</p></div>`;
-    const l = ITENS.filter(i => (catAtual === "todos" || i.cat.id === catAtual) && (!q || norm(i.sabor + " " + i.cat.nome).includes(q)));
-    if (!l.length) { $("#grade").innerHTML = `<div class="vazio">Nenhum sabor encontrado 🍦</div>`; return; }
+    const l = ITENS.filter(i => (q || catAtual === "todos" || i.cat.id === catAtual) && (!q || norm(i.sabor + " " + i.cat.nome).includes(q)));
+    if (!l.length) { $("#grade").innerHTML = `<div class="vazio">Nenhum sabor encontrado para “${$("#busca").value}” 🍦</div>`; return; }
     const grupos = CATS.map(c => ({ c, it: l.filter(i => i.cat.id === c.id) })).filter(g => g.it.length);
-    const NOTA = { copinho: "Os sabores do copinho variam. Adicione e combinamos pelo WhatsApp." };
-    $("#grade").innerHTML = grupos.map(g => `<div class="grupo"><h3>${g.c.nome}${g.c.tam ? `<small>${g.c.tam}</small>` : ""}</h3>${NOTA[g.c.id] ? `<p class="nota">${NOTA[g.c.id]}</p>` : ""}<ul class="itens-l">${
-      g.it.map(i => { const n = qtd[i.id] || 0;
-        return `<li class="${n?"sel":""}"><span class="nm">${i.sabor}${i.novo?'<span class="novo">Novo</span>':""}</span>${
-          n ? `<span class="qtd"><button class="m" data-id="${i.id}" data-d="-1" aria-label="Remover">−</button><span>${n}</span><button class="p" data-id="${i.id}" data-d="1" aria-label="Adicionar">+</button></span>`
-            : `<button class="add" data-id="${i.id}" data-d="1">+ Adicionar</button>`}</li>`; }).join("")}</ul></div>`).join("");
+    $("#grade").innerHTML = grupos.map(g => `<section class="grupo" id="g-${g.c.id}">
+      <div class="grupo-top">${fotoCat(g.c)}<div><h3>${g.c.nome}</h3><p>${g.c.desc}</p></div></div>
+      ${NOTA[g.c.id] ? `<p class="nota">${NOTA[g.c.id]}</p>` : ""}
+      <ul class="itens-l">${g.it.map(i => `<li class="${temNaLista(i)?"sel":""} ${TAMANHOS[i.cat.id]?"pote":""}"><span class="nm">${i.sabor}${i.novo?'<span class="novo">Novo</span>':""}</span>${botoes(i)}</li>`).join("")}</ul>
+    </section>`).join("");
   }
-  $("#busca").addEventListener("input", () => { if ($("#busca").value && catAtual !== "todos") { catAtual = "todos"; desenharAbas(); } desenharGrade(); });
-  $("#grade").addEventListener("click", e => { const b = e.target.closest("[data-id]"); if (!b) return; mudar(b.dataset.id, +b.dataset.d); });
+  let tBusca;
+  $("#busca").addEventListener("input", () => { clearTimeout(tBusca); tBusca = setTimeout(() => {
+    if ($("#busca").value && catAtual !== "todos") { catAtual = "todos"; desenharAbas(); }
+    desenharGrade(); }, 120); });
 
-  function mudar(id, d) {
-    qtd[id] = Math.max(0, (qtd[id] || 0) + d); if (!qtd[id]) delete qtd[id];
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-k]"); if (!b || b.closest("#itens")) return;
+    mudar(b.dataset.k, +b.dataset.d);
+  });
+
+  function mudar(k, d) {
+    qtd[k] = Math.max(0, (qtd[k] || 0) + d); if (!qtd[k]) delete qtd[k];
     if (d > 0) toast("Adicionado à lista ✓");
-    salvar(); desenharGrade(); atualizarLista();
+    salvar(); desenharTudo();
   }
+  function totalItens() { return Object.values(qtd).reduce((a,b) => a + b, 0); }
+  function desenharTudo() { desenharGrade(); desenharNovidades(); atualizarLista(); }
+
+  // ---------- janela da lista ----------
   function atualizarLista() {
-    const tot = Object.values(qtd).reduce((a,b) => a + b, 0);
+    const tot = totalItens();
     $("#lQtd").textContent = tot + (tot === 1 ? " item" : " itens");
     $("#lista").classList.toggle("on", tot > 0); document.body.classList.toggle("com-lista", tot > 0);
-    $("#itens").innerHTML = Object.entries(qtd).map(([id,n]) => { const i = ITENS.find(x => x.id === id); if (!i) return "";
-      return `<li><div>${n}x ${i.sabor}<small>${i.cat.nome}</small></div><button data-rm="${id}">Remover</button></li>`; }).join("");
+    $("#itens").innerHTML = Object.keys(qtd).map(k => { const i = itemDe(k); const t = tamDe(k);
+      return `<li><div>${i.sabor}${t ? " (" + t + ")" : ""}<small>${i.cat.nome}</small></div>${stepper(k)}</li>`; }).join("");
     if (!tot && $("#dlg").open) $("#dlg").close();
+    atualizarPrevia();
   }
-  $("#itens").addEventListener("click", e => { const b = e.target.closest("[data-rm]"); if (b) { delete qtd[b.dataset.rm]; salvar(); desenharGrade(); atualizarLista(); } });
-  $("#abrirLista").onclick = () => $("#dlg").showModal();
+  $("#itens").addEventListener("click", e => { const b = e.target.closest("[data-k]"); if (b) mudar(b.dataset.k, +b.dataset.d); });
+  $("#limpar").onclick = () => { if (!confirm("Limpar toda a lista?")) return; for (const k in qtd) delete qtd[k]; salvar(); desenharTudo(); };
+  $("#abrirLista").onclick = () => { montarDias(); atualizarPrevia(); $("#dlg").showModal(); };
   $("#fechar").onclick = () => $("#dlg").close();
+  $("#dlg").addEventListener("click", e => { if (e.target === $("#dlg")) $("#dlg").close(); });
   document.querySelectorAll('input[name=modo]').forEach(r => r.addEventListener("change", () => {
-    $("#campoLoja").hidden = document.querySelector('input[name=modo]:checked').value !== "revenda"; }));
+    $("#campoLoja").hidden = document.querySelector('input[name=modo]:checked').value !== "revenda"; atualizarPrevia(); }));
+  ["#nome","#loja","#obs","#hora"].forEach(s => $(s).addEventListener("input", atualizarPrevia));
   try { $("#nome").value = localStorage.getItem("anjos_nome") || ""; } catch(e) {}
+
+  // dias e horários de retirada (segue o horário do Empório, inclusive feriados)
+  let diaSel = null;
+  function montarDias() {
+    const hoje = new Date(), agora = hoje.getHours()*60 + hoje.getMinutes(); const out = [];
+    for (let k = 0; k < 7; k++) {
+      const d = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate() + k), h = horarioDo(d);
+      const fecha = h ? (+h[1].split(":")[0])*60 + (+h[1].split(":")[1]) : 0;
+      const ok = h && !(k === 0 && agora >= fecha - 30);
+      const nome = k === 0 ? "Hoje" : k === 1 ? "Amanhã" : DIAS[d.getDay()].replace(/^./, c => c.toUpperCase());
+      out.push({ d, h, ok, nome, data: d.toLocaleDateString("pt-BR", { day:"2-digit", month:"2-digit" }), fer: ehFeriado(d) });
+    }
+    if (!diaSel || !out.find(o => o.data === diaSel && o.ok)) diaSel = (out.find(o => o.ok) || {}).data;
+    $("#dias").innerHTML = out.map(o => `<button type="button" class="${o.data===diaSel?"on":""}" data-dia="${o.data}" ${o.ok?"":"disabled"}>${o.nome}<small>${o.data}${o.fer?" · feriado":""}</small></button>`).join("");
+    montarHoras(out.find(o => o.data === diaSel));
+  }
+  function montarHoras(o) {
+    const sel = $("#hora"), ant = sel.value; sel.innerHTML = "";
+    if (!o || !o.h) return;
+    const [a] = o.h[0].split(":").map(Number), [f] = o.h[1].split(":").map(Number);
+    const agora = new Date(); let ini = a;
+    if (o.nome === "Hoje") ini = Math.max(a, agora.getHours() + 1);
+    const ops = ["Qualquer horário"]; for (let x = ini; x < f; x++) ops.push(`${x}h às ${x+1}h`);
+    sel.innerHTML = ops.map(t => `<option ${t===ant?"selected":""}>${t}</option>`).join("");
+    atualizarPrevia();
+  }
+  $("#dias").addEventListener("click", e => { const b = e.target.closest("[data-dia]"); if (!b || b.disabled) return; diaSel = b.dataset.dia; montarDias(); });
+
+  function montarMensagem() {
+    const revenda = document.querySelector('input[name=modo]:checked').value === "revenda";
+    const grupos = {};
+    Object.entries(qtd).forEach(([k,n]) => { const i = itemDe(k), t = tamDe(k); (grupos[i.cat.nome] ||= []).push(`${n}x ${i.sabor}${t ? " (" + t + ")" : ""}`); });
+    let t = `Olá, Anjos! 🍦 ${revenda ? "Tenho interesse em *revender* e gostaria" : "Gostaria"} de fazer este pedido:\n`;
+    for (const g in grupos) t += `\n*${g}*\n` + grupos[g].map(x => "• " + x).join("\n") + "\n";
+    const b = $("#dias .on");
+    if (b) t += `\n*Retirada no Empório:* ${b.childNodes[0].textContent} (${diaSel})${$("#hora").value && $("#hora").value !== "Qualquer horário" ? ", " + $("#hora").value : ""}`;
+    t += `\n*Nome:* ${$("#nome").value.trim() || "—"}`;
+    if (revenda && $("#loja").value.trim()) t += `\n*Comércio:* ${$("#loja").value.trim()}`;
+    if ($("#obs").value.trim()) t += `\n*Obs.:* ${$("#obs").value.trim()}`;
+    t += `\n\nPoderiam me passar os valores e confirmar a disponibilidade?`;
+    return t;
+  }
+  function atualizarPrevia() { if ($("#previa")) $("#previa").textContent = montarMensagem(); }
 
   $("#enviar").onclick = () => {
     const nome = $("#nome").value.trim();
     if (!nome) { $("#nome").focus(); toast("Digite seu nome"); return; }
     try { localStorage.setItem("anjos_nome", nome); } catch(e) {}
-    const revenda = document.querySelector('input[name=modo]:checked').value === "revenda";
-    const grupos = {};
-    Object.entries(qtd).forEach(([id,n]) => { const i = ITENS.find(x => x.id === id); if (i) (grupos[i.cat.nome] ||= []).push(`${n}x ${i.sabor}`); });
-    let t = `Olá, Anjos! 🍦 ${revenda ? "Tenho interesse em *revender* e gostaria" : "Gostaria"} de consultar valores destes itens:\n`;
-    for (const g in grupos) t += `\n*${g}*\n` + grupos[g].map(x => "• " + x).join("\n") + "\n";
-    t += `\n*Nome:* ${nome}`;
-    if (revenda && $("#loja").value.trim()) t += `\n*Comércio:* ${$("#loja").value.trim()}`;
-    if ($("#obs").value.trim()) t += `\n*Obs.:* ${$("#obs").value.trim()}`;
-    window.open(zap(t), "_blank");
+    window.open(zap(montarMensagem()), "_blank");
   };
 
-  desenharAbas(); desenharGrade(); atualizarLista();
+  desenharAbas(); desenharTudo();
 </script>
 </body>
 </html>
