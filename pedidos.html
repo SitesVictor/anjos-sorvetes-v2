@@ -28,7 +28,10 @@
   .topo-ped .wrap{display:grid;grid-template-columns:1fr auto;gap:1rem 2rem;align-items:center}
   .topo-ped h1{font-size:clamp(2rem,4.6vw,3rem)}
   .topo-ped p{font-weight:700;opacity:.95;max-width:34rem}
-  .topo-ped .status{margin-top:.7rem}
+  .topo-ped{padding:1.3rem 0 1.1rem}
+  .mini-status{display:inline-flex;align-items:center;gap:.35rem;vertical-align:middle;font-family:Nunito;font-size:.72rem;font-weight:800;background:rgba(255,255,255,.16);border-radius:999px;padding:.2rem .6rem .2rem .5rem;margin-left:.4rem;position:relative;top:-.2em;white-space:nowrap}
+  .mini-status i{width:7px;height:7px;border-radius:50%;background:#8ef0a9;flex:none}
+  .mini-status.fech i{background:#ffb3b3}
   .passinhos{display:flex;gap:.5rem;flex-wrap:wrap}
   .passinhos span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:12px;padding:.45rem .75rem;font-weight:800;font-size:.85rem}
   .passinhos b{color:var(--amarelo)}
@@ -135,9 +138,8 @@
 <section class="topo-ped">
   <div class="wrap">
     <div>
-      <h1>Faça seu pedido</h1>
+      <h1>Faça seu pedido <span class="mini-status" id="status"><i></i><span>…</span></span></h1>
       <p>Escolha os sabores, envie a lista pelo WhatsApp e retire no Empório.</p>
-      <div class="status" id="status"><i></i><span>…</span></div>
     </div>
     <div class="passinhos"><span><b>1</b> Escolha</span><span><b>2</b> Envie no WhatsApp</span><span><b>3</b> Retire no Empório</span></div>
   </div>
@@ -198,7 +200,9 @@
 <script src="comum.js"></script>
 <script>
   montarLayout("pedidos");
-  desenharStatus("#status"); setInterval(() => desenharStatus("#status"), 60000);
+  function miniStatus() { const s = statusEmporio(), el = $("#status"); el.classList.toggle("fech", !s.aberto);
+    el.querySelector("span").textContent = s.aberto ? "Aberto agora" : s.txt.replace("Empório fechado · ", "Fechado · "); }
+  miniStatus(); setInterval(miniStatus, 60000);
 
   const TAMANHOS = { potes: ["1/2 L", "1 L"] };
   const CHAVE = "anjos_lista";
